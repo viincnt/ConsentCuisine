@@ -1,0 +1,18 @@
+---
+title: Overview
+description: Cookie consent is boring. The API behind it does not have to be.
+---
+
+Consent Cuisine is a headless, multilingual consent manager for products that want cookie prompts to feel native to each audience.
+
+The technical record is always stored as category IDs such as `necessary` and `analytics`. Locale packs only decide what people see.
+
+## The split
+
+- `@consent-cuisine/core` manages consent, persistence, versions, and subscriptions.
+- `@consent-cuisine/cuisines` provides optional locale packs such as `fr-FR`, `pt-BR`, and `en-GB`.
+- Your UI renders `technical` or `display` labels from `getCategories()`.
+
+## Built for choice
+
+Every locale pack has four individual food variants plus an `all` variant. Choose a single food for a focused theme, let the locale use `all`, or switch cuisine copy off entirely. The joke is optional; accurate consent is not.

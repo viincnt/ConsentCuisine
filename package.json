@@ -1,0 +1,42 @@
+{
+  "name": "consent-cuisine-workspace",
+  "version": "0.1.0",
+  "description": "A multilingual, cuisine-themed consent manager.",
+  "author": "Vincent Matthew (https://github.com/viincnt)",
+  "type": "module",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viincnt/ConsentCuisine.git"
+  },
+  "homepage": "https://github.com/viincnt/ConsentCuisine#readme",
+  "bugs": {
+    "url": "https://github.com/viincnt/ConsentCuisine/issues"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "packageManager": "pnpm@12.10.1",
+  "scripts": {
+    "build": "pnpm --filter @consent-cuisine/core build && pnpm --filter @consent-cuisine/cuisines build && pnpm --filter @consent-cuisine/docs build",
+    "test": "pnpm --filter @consent-cuisine/core test",
+    "check": "pnpm --filter @consent-cuisine/core check && pnpm --filter @consent-cuisine/cuisines check && pnpm --filter @consent-cuisine/docs check",
+    "dev:docs": "pnpm --filter @consent-cuisine/docs dev"
+  },
+  "keywords": [
+    "consent",
+    "cookie-consent",
+    "cookie-banner",
+    "privacy",
+    "gdpr",
+    "i18n",
+    "headless",
+    "typescript",
+    "cuisine"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

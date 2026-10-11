@@ -1,0 +1,46 @@
+{
+  "name": "@consent-cuisine/core",
+  "version": "0.1.0",
+  "description": "Headless consent state management for Consent Cuisine.",
+  "author": "Vincent Matthew (https://github.com/viincnt)",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viincnt/ConsentCuisine.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/viincnt/ConsentCuisine#readme",
+  "bugs": {
+    "url": "https://github.com/viincnt/ConsentCuisine/issues"
+  },
+  "keywords": [
+    "consent",
+    "cookie-consent",
+    "cookie-banner",
+    "privacy",
+    "gdpr",
+    "headless",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

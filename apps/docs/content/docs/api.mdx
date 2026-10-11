@@ -1,0 +1,38 @@
+---
+title: API reference
+description: The small surface area behind every consent experience.
+---
+
+## createConsentCuisine
+
+Creates an isolated consent controller.
+
+```ts
+const consent = createConsentCuisine({
+  locale: "en-GB",
+  cuisine: "tea",
+  locales: [enGB],
+  policyVersion: "2026-10"
+});
+```
+
+## Consent actions
+
+```ts
+consent.save({ analytics: true, marketing: false });
+consent.acceptAll();
+consent.rejectOptional();
+consent.reset();
+```
+
+`necessary` categories are always enabled. A changed `policyVersion` invalidates the stored record.
+
+## Observe changes
+
+```ts
+const unsubscribe = consent.subscribe((record) => {
+  console.log(record);
+});
+
+unsubscribe();
+```

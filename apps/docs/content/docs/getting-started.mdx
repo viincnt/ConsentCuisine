@@ -1,0 +1,36 @@
+---
+title: Getting started
+description: Register a locale pack and make the first consent decision.
+---
+
+Install the core and any locale packs you need.
+
+```ts
+import { createConsentCuisine, createLocalStorage } from "@consent-cuisine/core";
+import { frFR } from "@consent-cuisine/cuisines/fr-FR";
+```
+
+Register the locale pack at initialization. Set `cuisine` to a variant ID, `true` for the locale default, or `false` for conventional cookie labels.
+
+```ts
+const consent = createConsentCuisine({
+  locale: "fr-FR",
+  cuisine: "croissant",
+  locales: [frFR],
+  storage: createLocalStorage(),
+  policyVersion: "2026-10"
+});
+
+consent.acceptAll();
+```
+
+## Read category labels
+
+```ts
+const categories = consent.getCategories();
+
+categories[0].technical.label; // Cookies essentiels
+categories[0].display.label; // Croissants essentiels
+```
+
+The display label never changes the data you persist or the category a vendor receives.

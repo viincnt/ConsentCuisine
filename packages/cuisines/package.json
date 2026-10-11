@@ -1,0 +1,59 @@
+{
+  "name": "@consent-cuisine/cuisines",
+  "version": "0.1.0",
+  "description": "Optional locale and cuisine modules for Consent Cuisine.",
+  "author": "Vincent Matthew (https://github.com/viincnt)",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viincnt/ConsentCuisine.git",
+    "directory": "packages/cuisines"
+  },
+  "homepage": "https://github.com/viincnt/ConsentCuisine#readme",
+  "bugs": {
+    "url": "https://github.com/viincnt/ConsentCuisine/issues"
+  },
+  "keywords": [
+    "consent",
+    "cookie-consent",
+    "i18n",
+    "localization",
+    "cuisine",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./fr-FR": {
+      "types": "./dist/fr-FR.d.ts",
+      "default": "./dist/fr-FR.js"
+    },
+    "./pt-BR": {
+      "types": "./dist/pt-BR.d.ts",
+      "default": "./dist/pt-BR.js"
+    },
+    "./en-GB": {
+      "types": "./dist/en-GB.d.ts",
+      "default": "./dist/en-GB.js"
+    }
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "pnpm --filter @consent-cuisine/core build && tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@consent-cuisine/core": "workspace:*"
+  }
+}

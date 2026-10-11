@@ -1,0 +1,26 @@
+---
+title: Cuisine packs
+description: A locale can offer four focused variants and one complete setting.
+---
+
+Locale packs are optional modules. They carry technical cookie labels, cuisine labels, and a default selection.
+
+## Initial packs
+
+| Locale | Variants |
+| --- | --- |
+| `fr-FR` | `croissant`, `baguette`, `fromage`, `macaron`, `all` |
+| `pt-BR` | `pao-de-queijo`, `brigadeiro`, `coxinha`, `acai`, `all` |
+| `en-GB` | `biscuit`, `scone`, `tea`, `crumpet`, `all` |
+
+## Select a focused variant
+
+```ts
+createConsentCuisine({
+  locale: "pt-BR",
+  cuisine: "brigadeiro",
+  locales: [ptBR]
+});
+```
+
+Use `cuisine: true` to resolve the pack's `defaultCuisine`, which is `all` for the initial packs.
