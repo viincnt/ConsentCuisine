@@ -7,7 +7,25 @@ export const metadata: Metadata = {
     default: "Consent Cuisine",
     template: "%s | Consent Cuisine"
   },
-  description: "A consent API with locally meaningful labels."
+  description: "A headless, multilingual consent manager with locally meaningful labels.",
+  metadataBase: new URL("https://consent-cuisine.vercel.app"),
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    title: "Consent Cuisine",
+    description: "A headless, multilingual consent manager with locally meaningful labels.",
+    siteName: "Consent Cuisine",
+    type: "website",
+    url: "/",
+    images: ["/opengraph-image"]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Consent Cuisine",
+    description: "A headless, multilingual consent manager with locally meaningful labels.",
+    images: ["/opengraph-image"]
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

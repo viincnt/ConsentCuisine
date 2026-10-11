@@ -1,0 +1,58 @@
+---
+title: Storage and policy versions
+description: Persist consent where your application needs it and request it again when policy changes.
+---
+
+## Storage adapters
+
+Consent Cuisine stores one JSON record through a small adapter interface:
+
+```ts
+interface ConsentStorage {
+  get(key: string): string | null;
+  set(key: string, value: string): void;
+  remove(key: string): void;
+}
+```
+
+In browser applications, use `createLocalStorage()`.
+
+```ts
+import { createLocalStorage } from "@consent-cuisine/core";
+
+createConsentCuisine({
+  storage: createLocalStorage(),
+  storageKey: "my-product-consent"
+});
+```
+
+For server-backed preferences, an encrypted client store, or a framework-specific cookie abstraction, provide an adapter that implements the same three methods.
+
+## Policy versions
+
+Every record stores the `policyVersion` used when it was created. If the controller receives a different version, `getConsent()` returns `null` instead of an outdated record.
+
+```ts
+createConsentCuisine({
+  policyVersion: "2026-10"
+});
+```
+
+Increment the version when the categories, purposes, or policy meaning change enough to need a renewed choice. Do not change it for purely cosmetic copy edits.
+
+## Record shape
+
+```ts
+{
+  version: "2026-10",
+  updatedAt: "2026-10-11T12:00:00.000Z",
+  categories: {
+    necessary: true,
+    preferences: false,
+    analytics: true,
+    marketing: false
+  }
+}
+```
+
+Labels are intentionally absent from the record. They can evolve without breaking your stored consent data.

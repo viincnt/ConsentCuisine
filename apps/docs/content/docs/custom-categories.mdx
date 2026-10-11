@@ -1,0 +1,33 @@
+---
+title: Custom categories
+description: Extend the default consent model with categories that fit your product.
+---
+
+The default model contains `necessary`, `preferences`, `analytics`, and `marketing`. Pass `categories` when your product needs different or additional purposes.
+
+```ts
+const consent = createConsentCuisine({
+  categories: [
+    { id: "necessary", required: true },
+    { id: "analytics" },
+    { id: "video-personalization" }
+  ]
+});
+```
+
+Category IDs are part of your integration contract. Keep them stable, lower-case, and descriptive.
+
+## Required categories
+
+Mark a category with `required: true` when it must remain enabled. Required categories are always saved as accepted and cannot be disabled by `rejectOptional()`.
+
+## Locale fallbacks
+
+Locale modules do not need to know every custom category. When copy is missing, the category ID is used as the technical and display label until the locale adds it.
+
+```ts
+const categories = consent.getCategories();
+
+categories.find((category) => category.id === "video-personalization");
+// display.label === "video-personalization" until locale copy is provided
+```

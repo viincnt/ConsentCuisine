@@ -1,18 +1,32 @@
 ---
 title: Overview
-description: Cookie consent is boring. The API behind it does not have to be.
+description: A headless consent engine with stable data and replaceable language.
 ---
 
-Consent Cuisine is a headless, multilingual consent manager for products that want cookie prompts to feel native to each audience.
+Consent Cuisine is a headless, multilingual consent manager. It keeps consent state predictable while letting your product decide how that state is explained to people.
 
-The technical record is always stored as category IDs such as `necessary` and `analytics`. Locale packs only decide what people see.
+The technical record always uses category IDs such as `necessary` and `analytics`. Locale packs only decide what people see. This keeps integrations, reporting, and policy migrations independent from the language in your interface.
 
-## The split
+## What belongs where
 
-- `@consent-cuisine/core` manages consent, persistence, versions, and subscriptions.
-- `@consent-cuisine/cuisines` provides optional locale packs such as `fr-FR`, `pt-BR`, and `en-GB`.
-- Your UI renders `technical` or `display` labels from `getCategories()`.
+| Layer | Responsibility |
+| --- | --- |
+| `@consent-cuisine/core` | Categories, consent state, persistence, policy versions, and subscriptions. |
+| `@consent-cuisine/cuisines` | Optional technical and cuisine-themed copy for each locale. |
+| Your UI | The banner, modal, controls, design system, and accessibility decisions. |
 
-## Built for choice
+## The consent lifecycle
 
-Every locale pack has four individual food variants plus an `all` variant. Choose a single food for a focused theme, let the locale use `all`, or switch cuisine copy off entirely. The joke is optional; accurate consent is not.
+1. Create a controller with a policy version and storage adapter.
+2. Render `getCategories()` in your own UI.
+3. Save a user choice with `save`, `acceptAll`, or `rejectOptional`.
+4. Read the stable record whenever a vendor or feature needs a decision.
+5. Change `policyVersion` when an existing choice must be requested again.
+
+`necessary` is always enabled. Optional categories are opt-in and can be reset at any time.
+
+## Choose your copy
+
+Each bundled locale has conventional cookie copy plus cuisine variants. Choose a named variant for a consistent theme, use `true` for the locale default, or set `cuisine: false` when your interface should use conventional cookie labels.
+
+Continue with [Getting started](/docs/getting-started) to create a controller.

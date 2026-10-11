@@ -1,6 +1,6 @@
 ---
 title: API reference
-description: The small surface area behind every consent experience.
+description: The controller methods, stable records, and subscription API.
 ---
 
 ## createConsentCuisine
@@ -27,6 +27,18 @@ consent.reset();
 
 `necessary` categories are always enabled. A changed `policyVersion` invalidates the stored record.
 
+### `save(selection)`
+
+Accepts a map of category IDs to booleans. Required categories are always saved as `true`, even when omitted from the selection.
+
+### `acceptAll()` and `rejectOptional()`
+
+Convenience methods for the two common banner actions. `acceptAll()` enables every configured category. `rejectOptional()` keeps only the required categories enabled.
+
+### `reset()`
+
+Removes the stored record and returns the controller to the `unknown` state.
+
 ## Observe changes
 
 ```ts
@@ -36,3 +48,5 @@ const unsubscribe = consent.subscribe((record) => {
 
 unsubscribe();
 ```
+
+Subscriptions are useful when a banner and a preferences panel are rendered in separate parts of an application. The listener receives the new record after every save, or `null` after a reset.

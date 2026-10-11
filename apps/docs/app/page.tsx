@@ -1,75 +1,109 @@
 import Link from "next/link";
+import { InstallCommand } from "@/components/install-command";
+
+const locales = [
+  { code: "en-GB", food: "Biscuits", label: "Analytics biscuits", accent: "#d7ff67" },
+  { code: "fr-FR", food: "Croissants", label: "Croissants analytiques", accent: "#f4b57b" },
+  { code: "pt-BR", food: "Brigadeiros", label: "Brigadeiros analíticos", accent: "#8edfed" }
+];
 
 const principles = [
-  ["01", "Same signal", "Every choice still maps to the same technical consent category."],
-  ["02", "Different flavor", "Locale packs make the prompt sound like it belongs on the site."],
-  ["03", "No forced theme", "Use a single food, a local mix, or ordinary cookies whenever you want."]
+  ["01", "Consent stays serious", "Every choice maps to a stable technical ID. Your privacy model never depends on display copy."],
+  ["02", "Language gets a point of view", "Bring a locale module when a generic cookie banner is not how your product should sound."],
+  ["03", "The UI is yours", "Use React, Vue, a server-rendered template, or no framework at all. The core only manages state."]
 ];
 
-const localeSamples = [
-  { locale: "en-GB", food: "Biscuits", category: "Analytics biscuits", tone: "#c6f661" },
-  { locale: "fr-FR", food: "Croissants", category: "Croissants analytiques", tone: "#e4aa73" },
-  { locale: "pt-BR", food: "Brigadeiros", category: "Brigadeiros analiticos", tone: "#8bd6e8" }
-];
+const code = `import { createConsentCuisine, createLocalStorage } from "@consent-cuisine/core";
+import { ptBR } from "@consent-cuisine/cuisines/pt-BR";
+
+const consent = createConsentCuisine({
+  locale: "pt-BR",
+  cuisine: true,
+  locales: [ptBR],
+  storage: createLocalStorage(),
+  policyVersion: "2026-10"
+});`;
+
+function SiteNav() {
+  return (
+    <nav className="site-nav">
+      <Link href="/" className="brand-mark" aria-label="Consent Cuisine home"><span>cc</span><i>.</i></Link>
+      <div className="site-nav-links">
+        <Link href="/playground">Playground</Link>
+        <Link href="/about">About</Link>
+        <Link href="/docs">Docs</Link>
+      </div>
+      <a className="nav-github" href="https://github.com/viincnt/ConsentCuisine" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+    </nav>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <div><Link href="/" className="brand-mark"><span>cc</span><i>.</i></Link><p>Consent, with better taste.</p></div>
+      <div className="footer-links"><Link href="/docs">Documentation</Link><Link href="/playground">Playground</Link><Link href="/privacy">Privacy</Link><a href="https://www.npmjs.com/package/@consent-cuisine/core" target="_blank" rel="noreferrer">npm</a><a href="https://github.com/viincnt/ConsentCuisine" target="_blank" rel="noreferrer">GitHub</a></div>
+      <p className="footer-meta">MIT Licensed · Built for the web</p>
+    </footer>
+  );
+}
 
 export default function HomePage() {
   return (
-    <main className="min-h-[100dvh] overflow-hidden bg-[#0a0c0b] text-[#f2f4ed]">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between border-x border-[#29302a] px-5 sm:px-8">
-        <Link href="/" className="font-mono text-sm font-bold tracking-[-0.04em]">CONSENT//CUISINE</Link>
-        <div className="flex items-center gap-5 font-mono text-xs text-[#9ba39a]">
-          <Link className="transition-colors hover:text-[#c6f661]" href="/docs">Docs</Link>
-          <a className="rounded-sm bg-[#c6f661] px-3 py-2 font-semibold text-[#10150d] transition-transform active:scale-[0.98]" href="https://github.com">GitHub</a>
+    <main className="site-shell">
+      <SiteNav />
+
+      <section className="hero-grid">
+        <div className="hero-copy">
+          <p className="kicker">Consent infrastructure / made human</p>
+          <div>
+            <h1>Cookie consent is boring.<br /><em>I fixed the wrong problem.</em></h1>
+            <p className="hero-summary">A headless, multilingual consent manager for products that care how privacy language feels.</p>
+            <div className="hero-actions"><Link href="/docs/getting-started" className="button button-primary">Start building <span>→</span></Link><Link href="/playground" className="button button-ghost">Try the playground</Link></div>
+          </div>
+          <p className="hero-footnote">ONE CONSENT MODEL / MANY LOCAL VOICES</p>
         </div>
-      </nav>
 
-      <section className="grid-surface lime-rule border-y border-[#29302a]">
-        <div className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-7xl grid-cols-1 border-x border-[#29302a] lg:grid-cols-[1.3fr_0.7fr]">
-          <div className="flex flex-col justify-between px-5 py-14 sm:px-8 sm:py-18 lg:py-20">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#c6f661]">Consent, but make it local</p>
-            <div className="max-w-3xl py-12 lg:py-0">
-              <h1 className="max-w-3xl text-5xl font-semibold tracking-[-0.07em] sm:text-7xl lg:text-8xl">Cookie consent is boring. <span className="text-[#c6f661]">Make it local.</span></h1>
-              <p className="mt-7 max-w-xl text-base leading-7 text-[#b8c0b7] sm:text-lg">A multilingual API for cookie banners that speak the local language, food and all.</p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link href="/docs" className="rounded-sm bg-[#c6f661] px-5 py-3 font-mono text-sm font-semibold text-[#10150d] transition-transform hover:-translate-y-0.5 active:translate-y-0">Read the API</Link>
-                <Link href="/docs/getting-started" className="rounded-sm border border-[#3a4439] px-5 py-3 font-mono text-sm text-[#e5e8e1] transition-colors hover:border-[#c6f661]">Quick start</Link>
-              </div>
-            </div>
-            <p className="font-mono text-xs text-[#758075]">ONE API / MANY APPETITES / ZERO SEMANTIC CHAOS</p>
+        <aside className="hero-console" aria-label="Locale preview">
+          <p className="console-label">A single consent model / three expressions</p>
+          <div className="console-code"><span>locale: visitor.locale</span><span>cuisine: true</span><span>storage: local</span></div>
+          <div className="locale-list">
+            {locales.map((locale) => <div className="locale-row" key={locale.code}><span>{locale.code}</span><strong style={{ color: locale.accent }}>{locale.food}</strong><small>{locale.label}</small></div>)}
           </div>
+          <p className="console-status"><b /> Policy state ready</p>
+        </aside>
+      </section>
 
-          <div className="border-t border-[#29302a] bg-[#0e110e]/90 p-5 sm:p-8 lg:border-l lg:border-t-0">
-            <div className="flex h-full flex-col justify-between">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#9ba39a]">One consent model / three voices</p>
-              <pre className="overflow-x-auto font-mono text-sm leading-7 text-[#dbe5d5]"><code>{`createConsentCuisine({
-  locale: visitor.locale,
-  cuisine: true,
-  locales: [enGB, frFR, ptBR]
-});`}</code></pre>
-              <div className="border-t border-[#29302a] pt-5 font-mono text-xs">
-                {localeSamples.map((sample) => (
-                  <div key={sample.locale} className="grid grid-cols-[4.5rem_1fr] gap-3 border-b border-[#29302a] py-3 last:border-b-0">
-                    <span className="text-[#9ba39a]">{sample.locale}</span>
-                    <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1"><strong style={{ color: sample.tone }}>{sample.food}</strong><span className="text-right text-[#c5ccc3]">{sample.category}</span></span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+      <section className="manifesto-section">
+        <p className="section-index">/ 01</p>
+        <div><h2>Privacy is a promise.<br />It should not sound like a pop-up.</h2><p>Consent Cuisine gives product teams a reliable consent engine and a language layer with enough character to belong in the experience.</p></div>
+      </section>
+
+      <section className="principles-grid">
+        {principles.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
+      </section>
+
+      <section className="architecture-section">
+        <div className="architecture-intro"><p className="section-index">/ 02</p><h2>State beneath.<br /><em>Flavor above.</em></h2><p>The data your app stores remains technical and dependable. The labels people read are independently replaceable.</p><Link href="/docs/api" className="text-link">Explore the API <span>→</span></Link></div>
+        <div className="architecture-flow">
+          <div><span>01</span><b>Your interface</b><small>Any framework, any visual language.</small></div>
+          <div><span>02</span><b>Consent Cuisine core</b><small>Categories, state, versions, storage.</small></div>
+          <div><span>03</span><b>Locale module</b><small>Copy, variants, and local character.</small></div>
+          <div><span>04</span><b>Stable record</b><small>Technical IDs only. Always.</small></div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl border-x border-[#29302a] px-5 py-20 sm:px-8">
-        <div className="grid gap-px bg-[#29302a] md:grid-cols-3">
-          {principles.map(([number, title, description]) => (
-            <article key={number} className="min-h-56 bg-[#0a0c0b] p-6 sm:p-8">
-              <p className="font-mono text-xs text-[#c6f661]">{number}</p>
-              <h2 className="mt-14 text-2xl font-semibold tracking-[-0.045em]">{title}</h2>
-              <p className="mt-3 max-w-xs leading-7 text-[#9ba39a]">{description}</p>
-            </article>
-          ))}
-        </div>
+      <section className="code-section">
+        <div className="code-heading"><p className="section-index">/ 03</p><h2>Small API.<br />Long memory.</h2><p>Policy changes invalidate old choices. Required categories remain required. Storage is yours to choose.</p></div>
+        <pre><code>{code}</code></pre>
       </section>
+
+      <section className="install-section">
+        <p className="section-index">/ 04</p>
+        <div><h2>Give your banner<br />something worth saying.</h2><p>Install the state engine, add the locales you need, then make the experience your own.</p><InstallCommand /><div className="hero-actions"><Link href="/docs/getting-started" className="button button-primary">Read the docs <span>→</span></Link><a href="https://www.npmjs.com/package/@consent-cuisine/core" target="_blank" rel="noreferrer" className="button button-ghost">View on npm ↗</a></div></div>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

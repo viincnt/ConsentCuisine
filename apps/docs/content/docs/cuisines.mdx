@@ -1,9 +1,9 @@
 ---
 title: Cuisine packs
-description: A locale can offer four focused variants and one complete setting.
+description: Register conventional cookie labels or opt into food-themed locale variants.
 ---
 
-Locale packs are optional modules. They carry technical cookie labels, cuisine labels, and a default selection.
+Locale packs are optional modules. Each one contains conventional cookie labels, cuisine variants, and a default variant. The core package never assumes a locale exists.
 
 ## Initial packs
 
@@ -24,3 +24,32 @@ createConsentCuisine({
 ```
 
 Use `cuisine: true` to resolve the pack's `defaultCuisine`, which is `all` for the initial packs.
+
+## Use conventional labels
+
+Turn cuisine copy off without changing the locale or the stored consent record.
+
+```ts
+createConsentCuisine({
+  locale: "fr-FR",
+  cuisine: false,
+  locales: [frFR]
+});
+```
+
+## Add a locale
+
+A locale implements `CuisineLocale`: a locale code, conventional category copy, cuisine variants, and optionally a default variant. Add the module to your `locales` array; there is no central registry to edit in the core package.
+
+```ts
+const customLocale = {
+  locale: "en-AU",
+  cookies: {
+    necessary: { label: "Necessary cookies", description: "Required for the site to work." }
+  },
+  cuisines: {},
+  defaultCuisine: undefined
+};
+```
+
+Missing category copy safely falls back to the technical category ID.

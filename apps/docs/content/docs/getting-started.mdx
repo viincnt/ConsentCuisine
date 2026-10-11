@@ -1,16 +1,29 @@
 ---
 title: Getting started
-description: Register a locale pack and make the first consent decision.
+description: Install the packages, register a locale, and connect the controller to your UI.
 ---
 
-Install the core and any locale packs you need.
+## Install
+
+Install the core and locale package with your preferred package manager.
+
+```sh
+pnpm add @consent-cuisine/core @consent-cuisine/cuisines
+# npm install @consent-cuisine/core @consent-cuisine/cuisines
+# yarn add @consent-cuisine/core @consent-cuisine/cuisines
+# bun add @consent-cuisine/core @consent-cuisine/cuisines
+```
+
+## Create a controller
+
+Import the storage adapter and the locale modules your application supports.
 
 ```ts
 import { createConsentCuisine, createLocalStorage } from "@consent-cuisine/core";
 import { frFR } from "@consent-cuisine/cuisines/fr-FR";
 ```
 
-Register the locale pack at initialization. Set `cuisine` to a variant ID, `true` for the locale default, or `false` for conventional cookie labels.
+Register the locale pack at initialization. Set `cuisine` to a variant ID, `true` for the locale default, or `false` for conventional cookie labels. `policyVersion` is part of the persisted record: update it whenever a consent change requires a new decision.
 
 ```ts
 const consent = createConsentCuisine({
@@ -21,10 +34,11 @@ const consent = createConsentCuisine({
   policyVersion: "2026-10"
 });
 
-consent.acceptAll();
 ```
 
-## Read category labels
+`createLocalStorage()` is appropriate for browser code. If your storage belongs elsewhere, pass an object with `get`, `set`, and `remove` methods instead.
+
+## Render category labels
 
 ```ts
 const categories = consent.getCategories();
@@ -33,4 +47,12 @@ categories[0].technical.label; // Cookies essentiels
 categories[0].display.label; // Croissants essentiels
 ```
 
-The display label never changes the data you persist or the category a vendor receives.
+Each item also includes `id`, `required`, and `accepted`. Use those values to render controls in any framework.
+
+```ts
+for (const category of consent.getCategories()) {
+  console.log(category.id, category.accepted, category.display.label);
+}
+```
+
+The display label never changes the data you persist or the category a vendor receives. See [Cuisine packs](/docs/cuisines) for the available variants.
