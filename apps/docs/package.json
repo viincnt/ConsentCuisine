@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm --filter @consent-cuisine/core build && pnpm --filter @consent-cuisine/cuisines build",
     "build": "next build",
     "start": "next start",
-    "check": "next build"
+    "check": "pnpm --filter @consent-cuisine/core build && pnpm --filter @consent-cuisine/cuisines build && next build"
   },
   "dependencies": {
     "@consent-cuisine/core": "workspace:*",
